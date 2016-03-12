@@ -141,7 +141,7 @@ class Hotel(Base):
 
 class Attraction(Base):
 
-    __tablename__ = 'attractions'
+    __tablename__ = 'attraction'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(80), nullable=False)
