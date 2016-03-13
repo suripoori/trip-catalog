@@ -13,7 +13,8 @@
 {% endwith %}
 <ul>
     {% for restaurant in restaurants %}
-        <li><strong>{{restaurant.restaurant_name}}</strong> - {{restaurant.city.city_name}} - {{restaurant.rating}}</li>
+        <li><strong>{{restaurant.restaurant_name}}</strong> - {{restaurant.city.city_name}} - {{restaurant.rating}} -
+        {{restaurant.number_of_customers}}</li>
     {% endfor %}
 </ul>
 {% endblock %}
