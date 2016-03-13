@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!--Message Flashing-->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li><strong>{{message}}</strong></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<h1>Welcome to Tripper</h1>
+<h3>Tripper is a website where travelers can log their travels to various cities, and get inspiration from others.</h3>
+<h2><a href="{{url_for('general.showCities')}}">Cities to Visit!</a> </h2>
+<h2><a href="{{url_for('general.showHotels')}}">Places to stay!</a></h2>
+<h2><a href="{{url_for('general.showRestaurants')}}">Places to eat!</a></h2>
+<h2><a href="{{url_for('general.showMainPage')}}">Major attractions!</a></h2>
+{% endblock %}

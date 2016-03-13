@@ -14,7 +14,7 @@ import requests
 mod = Blueprint('login', __name__, url_prefix='/login')
 
 def createUser(login_session):
-    newUser = User(name=login_session['username'], email=login_session[
+    newUser = User(user_name=login_session['username'], email=login_session[
                    'email'], picture=login_session['picture'])
     session.add(newUser)
     session.commit()

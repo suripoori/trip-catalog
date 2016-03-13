@@ -45,7 +45,7 @@ class User(Base):
 
     __tablename__ = 'user'
 
-    name = Column(String(80), nullable=False)
+    user_name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     email = Column(String(30), nullable=False)
     picture = Column(String(300), nullable=True)
@@ -60,7 +60,7 @@ class User(Base):
     @property
     def serialize(self):
         return {
-            'name' : self.name,
+            'user_name' : self.user_name,
             'id' : self.id,
             'email' : self.email,
             'picture' : self.picture,
@@ -75,18 +75,21 @@ class City(Base):
 
     __tablename__ = 'city'
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False)
+    city_name = Column(String(80), nullable=False)
     state = Column(String(80), nullable=False)
     country = Column(String(80), nullable=False)
     users = relationship(
         "User",
         secondary=user_city_association_table,
         back_populates="cities")
+    restaurants = relationship("Restaurant", back_populates="city")
+    hotels = relationship("Hotel", back_populates="city")
+    attractions = relationship("Attraction", back_populates="city")
 
     @property
     def serialize(self):
         return {
-            'name' : self.name,
+            'city_name' : self.city_name,
             'id' : self.id,
             'state' : self.state,
             'country' : self.country,
@@ -98,11 +101,11 @@ class Restaurant(Base):
 
     __tablename__ = 'restaurant'
 
-    name = Column(String(80), nullable=False)
+    restaurant_name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     customers = relationship("UserRestaurantAssociation", back_populates="restaurant")
     city_id = Column(Integer, ForeignKey('city.id'))
-    city = relationship(City)
+    city = relationship("City")
     rating = Column(Integer, CheckConstraint('rating >= 0 AND rating <=5'))
 
     # We added this serialize function to be able to send JSON objects in a serializable format
@@ -110,7 +113,7 @@ class Restaurant(Base):
     def serialize(self):
 
        return {
-           'name' : self.name,
+           'restaurant_name' : self.restaurant_name,
            'id' : self.id,
            'customers' : self.customers,
            'city_id' : self.city_id,
@@ -122,10 +125,10 @@ class Hotel(Base):
 
     __tablename__ = 'hotel'
 
-    name = Column(String(80), nullable=False)
+    hotel_name = Column(String(80), nullable=False)
     id = Column(Integer, primary_key=True)
     city_id = Column(Integer, ForeignKey('city.id'))
-    city = relationship(City)
+    city = relationship("City")
     guests = relationship("UserHotelAssociation", back_populates="hotel")
     rating = Column(Integer, CheckConstraint('rating >= 0 AND rating <= 5'))
 
@@ -133,7 +136,7 @@ class Hotel(Base):
     def serialize(self):
 
         return {
-            'name' : self.name,
+            'hotel_name' : self.hotel_name,
             'id' : self.id,
             'guests' : self.guests,
             'rating' : self.rating,
@@ -146,17 +149,17 @@ class Attraction(Base):
     __tablename__ = 'attraction'
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(80), nullable=False)
+    attraction_name = Column(String(80), nullable=False)
     rating = Column(Integer, CheckConstraint('rating >= 0 AND rating <= 5'))
     city_id = Column(Integer, ForeignKey('city.id'))
-    city = relationship(City)
+    city = relationship("City")
     visitors = relationship("UserAttractionAssociation", back_populates="attraction")
 
     @property
     def serialize(self):
 
         return {
-            'name' : self.name,
+            'attraction_name' : self.attraction_name,
             'id' : self.id,
             'rating' : self.rating,
             'visitors' : self.visitors,
