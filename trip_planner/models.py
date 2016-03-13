@@ -9,10 +9,14 @@ from sqlalchemy.orm import sessionmaker
 
 Base = declarative_base()
 
-user_city_association_table = Table('association', Base.metadata,
-    Column('user_id', Integer, ForeignKey('user.id')),
-    Column('city_id', Integer, ForeignKey('city.id'))
-)
+class UserCityAssociation(Base):
+
+    __tablename__ = 'user_city_association'
+    user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+    city_id = Column(Integer, ForeignKey('city.id'), primary_key=True)
+    user = relationship("User", back_populates="cities")
+    city = relationship("City", back_populates="travelers")
+
 
 class UserRestaurantAssociation(Base):
 
@@ -49,10 +53,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String(30), nullable=False)
     picture = Column(String(300), nullable=True)
-    cities = relationship(
-        "City",
-        secondary=user_city_association_table,
-        back_populates="users")
+    cities = relationship("UserCityAssociation", back_populates="user")
     restaurants = relationship("UserRestaurantAssociation", back_populates="user")
     hotels = relationship("UserHotelAssociation", back_populates="user")
     attractions = relationship("UserAttractionAssociation", back_populates="user")
@@ -78,10 +79,7 @@ class City(Base):
     city_name = Column(String(80), nullable=False)
     state = Column(String(80), nullable=False)
     country = Column(String(80), nullable=False)
-    users = relationship(
-        "User",
-        secondary=user_city_association_table,
-        back_populates="cities")
+    travelers = relationship("UserCityAssociation", back_populates="city")
     restaurants = relationship("Restaurant", back_populates="city")
     hotels = relationship("Hotel", back_populates="city")
     attractions = relationship("Attraction", back_populates="city")
