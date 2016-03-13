@@ -10,4 +10,6 @@ from flask import Flask
 app = Flask(__name__)
 
 from trip_planner.views import login
+from trip_planner.views import general
 app.register_blueprint(login.mod)
+app.register_blueprint(general.mod)

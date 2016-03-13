@@ -63,10 +63,10 @@ window.fbAsyncInit = function() {
       // Logged into your app and Facebook.
         // Hide the login button
         $('.fb-login-button').attr('style', 'display: none');
-        // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+        // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main page
         $.ajax({
         type: 'POST',
-            url: '/fbconnect?state={{ STATE }}',
+            url: '/login/fbconnect?state={{ STATE }}',
             processData: false,
             data: response.authResponse.accessToken,
             contentType: 'application/octet-stream; charset=utf-8',
@@ -74,7 +74,7 @@ window.fbAsyncInit = function() {
                 if(result) {
                     testAPI();
                     setTimeout(function() {
-                        window.location.href = "/restaurants";
+                        window.location.href = "/";
                     }, 4000);
                 }
                 else if (response.status === 'not_authorized') {
@@ -145,11 +145,11 @@ function signInCallback(authResult) {
     //Check if the user is authorized
     if (authResult['code']) {
         // Hide the sign-in button now that the user is authorized
-        $('#signinButton').attr('style', 'display: none');
-         // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+        $('#signInButton').attr('style', 'display: none');
+         // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main page
         $.ajax({
             type: 'POST',
-            url: '/gconnect?state={{STATE}}',
+            url: '/login/gconnect?state={{STATE}}',
             processData: false,
             data: authResult['code'],
             contentType: 'application/octet-stream; charset=utf-8',
@@ -158,7 +158,7 @@ function signInCallback(authResult) {
                 if (result) {
                     $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
                     setTimeout(function() {
-                        window.location.href = "/restaurants";
+                        window.location.href = "/";
                     }, 4000);
                 }
                 else if (authResult['error']) {
