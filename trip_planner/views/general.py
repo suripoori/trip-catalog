@@ -33,3 +33,8 @@ def showRestaurants():
 def showAttractions():
     attractions = session.query(Attraction).all()
     return render_template('attractions.html', attractions=attractions)
+
+@mod.route('/users')
+def showUsers():
+    users = session.query(User).all()
+    return render_template('users.html', users=users)

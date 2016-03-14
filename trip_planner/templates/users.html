@@ -11,12 +11,10 @@
 </ul>
 {% endif %}
 {% endwith %}
-{% if restaurants %}
+{% if users %}
 <ul>
-    {% for restaurant in restaurants %}
-        <li><strong><a href="{{url_for('reviews.show_restaurant_reviews', restaurant_id=restaurant.id)}}">
-            {{restaurant.restaurant_name}}</a></strong> - {{restaurant.city.city_name}} - {{restaurant.rating}} -
-        {{restaurant.number_of_customers}}</li>
+    {% for user in users %}
+        <li><strong>{{user.user_name}}</strong> - {{user.number_of_reviews}}</li>
     {% endfor %}
 </ul>
 {% endif %}

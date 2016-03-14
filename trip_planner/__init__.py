@@ -11,5 +11,7 @@ app = Flask(__name__)
 
 from trip_planner.views import login
 from trip_planner.views import general
+from trip_planner.views import reviews
 app.register_blueprint(login.mod)
 app.register_blueprint(general.mod)
+app.register_blueprint(reviews.mod)

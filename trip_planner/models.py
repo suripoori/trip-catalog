@@ -17,7 +17,8 @@ class UserCityAssociation(Base):
     city_id = Column(Integer, ForeignKey('city.id'), primary_key=True)
     user = relationship("User", back_populates="cities")
     city = relationship("City", back_populates="travelers")
-    trip_log = Column(String(400))
+    review = Column(String(400))
+    rating = Column(Integer, CheckConstraint('rating >= 0 AND rating <=5'))
 
 
 class UserRestaurantAssociation(Base):
@@ -61,6 +62,10 @@ class User(Base):
     restaurants = relationship("UserRestaurantAssociation", back_populates="user")
     hotels = relationship("UserHotelAssociation", back_populates="user")
     attractions = relationship("UserAttractionAssociation", back_populates="user")
+
+    @property
+    def number_of_reviews(self):
+        return len(self.cities) + len(self.restaurants) + len(self.hotels) + len(self.attractions)
 
     @property
     def serialize(self):

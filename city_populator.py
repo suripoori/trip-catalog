@@ -40,11 +40,11 @@ session.commit()
 # Create a few cities
 City1 = City(city_name="New York", state="New York", country="USA")
 session.add(City1)
-a1 = UserCityAssociation(trip_log="New York, so many places to eat! So many things to see! Loved the trip!")
+a1 = UserCityAssociation(review="New York, so many places to eat! So many things to see! Loved the trip!", rating=5)
 a1.user = User1
-a2 = UserCityAssociation(trip_log="We went to Grimaldi's for lunch during our brief visit")
+a2 = UserCityAssociation(review="We went to Grimaldi's for lunch during our brief visit", rating=3)
 a2.user = User2
-a3 = UserCityAssociation(trip_log="I went there just for the Indian food")
+a3 = UserCityAssociation(review="I went there just for the Indian food", rating=4)
 a3.user = User3
 City1.travelers.append(a1)
 City1.travelers.append(a2)
@@ -53,9 +53,9 @@ session.commit()
 
 City2 = City(city_name="Boston", state="Massachussetts", country="USA")
 session.add(City2)
-a4 = UserCityAssociation(trip_log="Lot of history in this place")
+a4 = UserCityAssociation(review="Lot of history in this place", rating=5)
 a4.user = User1
-a5 = UserCityAssociation(trip_log="Not many Indian restaurants here")
+a5 = UserCityAssociation(review="Not many Indian restaurants here", rating=2)
 a5.user = User3
 City2.travelers.append(a4)
 City2.travelers.append(a5)
@@ -63,9 +63,9 @@ session.commit()
 
 City3 = City(city_name="Fort Lauderdale", state="Florida", country="USA")
 session.add(City3)
-a6 = UserCityAssociation(trip_log="Ah the beaches")
+a6 = UserCityAssociation(review="Ah the beaches", rating=5)
 a6.user = User1
-a7 = UserCityAssociation(trip_log="Too many old people")
+a7 = UserCityAssociation(review="Too many old people", rating=1)
 a7.user = User2
 City3.travelers.append(a6)
 City3.travelers.append(a7)
@@ -73,9 +73,9 @@ session.commit()
 
 City4 = City(city_name="Bangalore", state="Karnataka", country="India")
 session.add(City4)
-a8 = UserCityAssociation(trip_log="Tech crowd")
+a8 = UserCityAssociation(review="Tech crowd", rating=4)
 a8.user = User2
-a9 = UserCityAssociation(trip_log="South Indian food!")
+a9 = UserCityAssociation(review="South Indian food!", rating=5)
 a9.user = User3
 City4.travelers.append(a8)
 City4.travelers.append(a9)
@@ -91,6 +91,7 @@ assoc2 = UserRestaurantAssociation(review="Didn't care much about the food, was 
 assoc2.user = User2
 Restaurant1.customers.append(assoc2)
 session.commit()
+
 
 Restaurant2 = Restaurant(restaurant_name="Saravana Bhavan", city_id=1)
 session.add(Restaurant2)

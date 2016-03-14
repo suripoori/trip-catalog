@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<!--Message Flashing-->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li><strong>{{message}}</strong></li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<h1>{{name}}</h1>
+<h2>City Reviews</h2>
+{% if city_reviews %}
+<ul>
+    {% for review in city_reviews %}
+        <li><strong>{{review[1]}}</strong> - {{review[2]}} - {{review[3]}} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h2>Restaurant Reviews</h2>
+{% if restaurant_reviews %}
+<ul>
+    {% for review in restaurant_reviews %}
+        <li><strong>{{review[1]}}</strong> - {{review[2]}} - {{review[3]}} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h2>Hotel Reviews</h2>
+{% if hotel_reviews %}
+<ul>
+    {% for review in hotel_reviews %}
+        <li><strong>{{review[1]}}</strong> - {{review[2]}} - {{review[3]}} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+<h2>Attraction Reviews</h2>
+{% if city_reviews %}
+<ul>
+    {% for review in attraction_reviews %}
+        <li><strong>{{review[1]}}</strong> - {{review[2]}} - {{review[3]}} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock %}
